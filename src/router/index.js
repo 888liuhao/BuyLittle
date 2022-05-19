@@ -31,7 +31,8 @@ const router = new VueRouter({
                     component:() => import ('../views/shops.vue'),
                     meta:{
                         name:"shops",
-                        isShownav:true
+                        title:"购物车",
+                        isShownav:false
                     }
                 },
                 {
@@ -39,7 +40,7 @@ const router = new VueRouter({
                     component:() => import ('../views/personalname.vue'),
                     meta:{
                         name:"personalname",
-                        isShownav:true
+                        isShownav:false
                     }
                 },
             ]

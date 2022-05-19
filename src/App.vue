@@ -1,10 +1,9 @@
 <template>
     <div class="app">
-        <!-- 头部栏 -->
+        <!-- 头部栏   right-text="按钮"  -->
             <van-nav-bar
                 :title="title"
-                left-text="返回"
-                right-text="按钮"
+                left-text=""
                 left-arrow
                 v-show="isShnav"
                 @click-left="$router.back()"
@@ -45,6 +44,15 @@
     }
 </script>
 <style lang="scss">
+//导入scss公共样式
+@import './assets/scss/Public.scss';
+    html{
+        scroll-behavior: smooth;    //滚动动画变的丝滑
+    }
+    *{
+        box-sizing: border-box;
+        font-size: 14px;
+    }
     .app{
         min-width: 320px;
         max-width: 750px;

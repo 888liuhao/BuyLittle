@@ -3,7 +3,8 @@ import App from './App.vue'
 import router from './router/index.js'
 
 //导入normalize规范
-import './assets/css/Normalize.css'
+import './assets/scss/Normalize.css'
+
 
 //导入vantui
 import './vantui.js'
