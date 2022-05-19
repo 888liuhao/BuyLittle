@@ -1,13 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+//引入加载进度条js文件
+import NProgress from "nprogress"
 
 Vue.use(VueRouter)
 
-
-
 //注册路由
-
-
 const router = new VueRouter({
     routes:[
         {
@@ -58,9 +56,33 @@ const router = new VueRouter({
             meta:{
                 title:'新闻列表'
             }
+        },
+        {
+            path:'/goodinfo/:id',
+            component:() => import ('../views/goodInfo.vue'),
+            meta:{
+                title:'商品详情'
+            }
         }
         
     ]
+})
+
+//关闭进度条右边小圆圈
+NProgress.configure({
+    showSpinner: false,
+});
+
+//全局前守卫
+router.beforeEach((to, from, next) => {
+    // 开启网页加载进度条
+    NProgress.start()
+    next();
+})
+//全局后守卫
+router.afterEach((to, from) => {
+    NProgress.done()
+    // 关闭网页加载进度条
 })
 
 export default router

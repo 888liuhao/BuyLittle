@@ -16,24 +16,15 @@
     </van-swipe>
     <!-- 九宫格 -->
     <van-grid :column-num="4">
-        <van-grid-item v-for="item in Sudoku" :key="item.title">
+        <van-grid-item v-for="item in Sudoku" :key="item.title" :to="item.to">
             <van-image :src="item.img"/>
             <span class="Sudokutitle">{{item.title}}</span>
         </van-grid-item>
     </van-grid>
     <!-- 商品推荐 -->
-    <van-divider dashed class="shoptitle">精选好物</van-divider>
+    <van-divider class="shoptitle" :style="{borderColor: '#181818'}">精选好物</van-divider>
     <div class="lotGoods">
-        <div class="oneGoods" v-for="item in homeGoodData" :key="item.id">
-            <div class="pngGoods">
-                <img v-lazy="item.img_url">
-            </div>
-            <div class="titleGoods ellipsis_line_2">{{item.title}}</div>
-            <div class="twoSpan">
-                <span class="leftjia">&yen;<em class="leftzi">{{item.sell_price}}</em></span>
-                <span class="rigzi">{{item.likes}}条评论+</span>
-            </div>
-        </div>
+        <goods v-for="item in homeGoodData" :data="item" :key="item.id" @goodinfo="inGood" />
     </div>
     
 
@@ -45,6 +36,7 @@
 //引入api
 import { foreachHome,foreachGoods } from '../api/Home.js'
 import backTop from '../componets/backTop.vue'
+import goods from '../componets/goods.vue'
 
 export default {
     name:'Home',
@@ -53,14 +45,14 @@ export default {
             value: "",
             swipeimg:[],
             Sudoku:[
-                {img:'../src/assets/imgs/1.png',title:'买亿点超商'},
-                {img:'../src/assets/imgs/2.png',title:'新闻列表'},
-                {img:'../src/assets/imgs/3.png',title:'亿点生鲜'},
-                {img:'../src/assets/imgs/4.png',title:'生活缴费'},
-                {img:'../src/assets/imgs/5.png',title:'领精贴'},
-                {img:'../src/assets/imgs/6.png',title:'puls会员'},
-                {img:'../src/assets/imgs/7.png',title:'领亿豆'},
-                {img:'../src/assets/imgs/8.png',title:'更多'},
+                {img:'../src/assets/imgs/1.png',title:'买亿点超商',to:'/supermarket'},
+                {img:'../src/assets/imgs/2.png',title:'新闻列表',to:'/newslist'},
+                {img:'../src/assets/imgs/3.png',title:'亿点生鲜',to:'/newslist'},
+                {img:'../src/assets/imgs/4.png',title:'生活缴费',to:'/newslist'},
+                {img:'../src/assets/imgs/5.png',title:'领精贴',to:'/newslist'},
+                {img:'../src/assets/imgs/6.png',title:'puls会员',to:'/newslist'},
+                {img:'../src/assets/imgs/7.png',title:'领亿豆',to:'/newslist'},
+                {img:'../src/assets/imgs/8.png',title:'更多',to:'/newslist'},
             ],
             homeGoodData:[],
         };
@@ -77,10 +69,14 @@ export default {
         async homeGoods(){
             const data = await foreachGoods()
             this.homeGoodData = data.message
+        },
+        inGood(data){
+            this.$router.push(`/goodinfo/${data.id}`)
         }
     },
     components:{
         backTop,
+        goods
     }
 };
 </script>
@@ -115,9 +111,12 @@ export default {
     height: 200px;
         .van-swipe-item {
             height: 200px;
+            padding: 7px;
                 img{
                     width: 100%;
                     height: 100%;
+                    overflow: hidden;
+                    border-radius: 12px;
                 }   
         }
 }
@@ -140,6 +139,7 @@ export default {
 .shoptitle{
     font-size:17px;
     color: black;
+    padding: 0 15px;
 }
 .lotGoods{
     margin-bottom: 60px;
@@ -147,58 +147,5 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
 
-    .oneGoods{
-        width: 200px;
-        height: 290px;
-        border-radius: 10px;
-        background-color: white;
-        overflow: hidden;
-        margin-bottom: 13px;
-        padding: 6px;
-
-        .pngGoods{
-            border-radius: 10px;
-            overflow: hidden;
-            width: 190px;
-            height: 190px;
-            
-            img{
-                height: 100%;
-                width: 100%;
-            }
-        }
-    }
-    .titleGoods{
-        height: 45px;
-        font-size: 18px;
-        padding: 6px;
-    }
-    .twoSpan{
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-        .leftjia{
-            color:red;
-            font-size: 16px;
-            margin-top: 5px;
-            .leftzi{
-                font-size: 26px;
-                color: red;
-                font-style: normal;
-                margin-top: 10px;
-            }
-        }
-        .rigzi{
-            display: flex;
-            justify-content: center;
-            align-items:center;
-            height: 20px;
-            font-size: 12px;
-            background-color: #f6f6f6;
-            border-radius: 5px;
-            margin-top: 14px;
-            color:#666;
-        }
-    }
 }
 </style>

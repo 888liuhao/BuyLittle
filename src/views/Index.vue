@@ -7,6 +7,7 @@
 
         <van-tabbar v-model="active">
         <van-tabbar-item icon="home-o" to="/home/index">首页</van-tabbar-item>
+        <van-tabbar-item icon="apps-o" >分类</van-tabbar-item>
         <van-tabbar-item icon="cart"  badge="9" to="/home/shops">购物车</van-tabbar-item>
         <van-tabbar-item icon="friends-o" to="/home/personalname">我的</van-tabbar-item>
         </van-tabbar>
@@ -26,8 +27,8 @@ export default {
             let {name} = newRoute.meta
             const nameMap = {
                 'Home':0,
-                'shops':1,
-                'personalname':2,
+                'shops':2,
+                'personalname':3,
             }
             this.active = nameMap[name]
             },
@@ -36,6 +37,6 @@ export default {
     }
 }
 </script>
-<style lang="">
+<style lang="scss">
     
 </style>

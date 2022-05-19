@@ -18,9 +18,14 @@ import {
         Image,
         Divider,
         Lazyload,
+        PullRefresh,
+        List,
+
         } from 'vant';
 
 Vue.use(Button);
+Vue.use(PullRefresh);
+Vue.use(List);
 Vue.use(Lazyload);
 Vue.use(Image);
 Vue.use(Divider);
