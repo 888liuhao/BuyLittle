@@ -20,10 +20,17 @@ import {
         Lazyload,
         PullRefresh,
         List,
-
+        NoticeBar,
+        GoodsAction,
+        GoodsActionButton,
+        GoodsActionIcon,
         } from 'vant';
 
 Vue.use(Button);
+Vue.use(GoodsAction);
+Vue.use(GoodsActionButton);
+Vue.use(GoodsActionIcon);
+Vue.use(NoticeBar);
 Vue.use(PullRefresh);
 Vue.use(List);
 Vue.use(Lazyload);

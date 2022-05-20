@@ -60,6 +60,7 @@ const router = new VueRouter({
         {
             path:'/goodinfo/:id',
             component:() => import ('../views/goodInfo.vue'),
+            props:true,
             meta:{
                 title:'商品详情'
             }

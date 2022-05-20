@@ -80,7 +80,7 @@ export default {
     }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .box{
     background-color: #f6f6f6;
 }

@@ -29,7 +29,6 @@ export default {
     methods: {
         //上拉加载数据 进入或刷新当前页会默认调用一次
         onLoad() {
-            console.log(11);
             this.page++
             this.foreachsupermarket_()
         },
@@ -65,7 +64,7 @@ export default {
     }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .lotGoods{
     margin-bottom: 10px;
     display: flex;

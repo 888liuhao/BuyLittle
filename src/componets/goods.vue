@@ -7,7 +7,7 @@
             <slot name="bottom">
                 <div class="twoSpan">
                     <span class="leftjia">&yen;<em class="leftzi">{{data.sell_price}}</em></span>
-                    <span class="rigzi">{{data.likes}}条好评+</span>
+                    <span class="rigzi">{{data.market_price}}条好评+</span>
                 </div>
             </slot>
         </div>

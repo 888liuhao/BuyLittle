@@ -1,9 +1,9 @@
 <template lang="">
     <div>
         <!-- index为首、购、个人的父页面，给其三展示 -->
-        <keep-alive>
+        
         <router-view></router-view>
-        </keep-alive>
+        
 
         <van-tabbar v-model="active">
         <van-tabbar-item icon="home-o" to="/home/index">首页</van-tabbar-item>
