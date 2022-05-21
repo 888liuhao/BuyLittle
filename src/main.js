@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router/index.js'
+import store from './store/index.js'
 
 //导入normalize规范
 import './assets/scss/Normalize.css'
@@ -12,5 +13,6 @@ import "../node_modules/nprogress/nprogress.css"
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

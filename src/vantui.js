@@ -24,9 +24,20 @@ import {
         GoodsAction,
         GoodsActionButton,
         GoodsActionIcon,
+        Sku,
+        SwipeCell,
+        Card,
+        Stepper,
+        Toast,
+
         } from 'vant';
 
 Vue.use(Button);
+Vue.use(SwipeCell);
+Vue.use(Stepper);
+Vue.use(Sku);
+Vue.use(Toast);
+Vue.use(Card);
 Vue.use(GoodsAction);
 Vue.use(GoodsActionButton);
 Vue.use(GoodsActionIcon);

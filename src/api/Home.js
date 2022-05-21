@@ -4,7 +4,7 @@ export function foreachHome(){
     return reqest.get('/api/getlunbo')
 }
 
-export function foreachGoods(page=1,limit=10){
+export function foreachGoods(page=1,limit=14){
     return reqest.get(`/api/recommend?page=${page}&limit=${limit}`)
 }
 

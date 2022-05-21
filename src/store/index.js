@@ -1,15 +1,96 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-    state: {
-        count: 0
+ const store = new Vuex.Store({
+    strict:true,
+    state:{
+        goodPlenty:[],
+        allselected:false
     },
-    mutations: {
-        addCount(state, num) {
-            state.count += num
+    mutations:{
+        //判断加入商品是否重复
+        addGoodsCat(state,data){
+            const index = state.goodPlenty.findIndex(item => item.id == data.id)
+            if(index !== -1){
+                state.goodPlenty[index].number += data.number
+            }else{
+                state.goodPlenty.push(data)
+            }
+        },
+        //购物车内加减数量
+        quantity(state,{val,name}){
+            console.log(state.goodPlenty);
+            state.goodPlenty[name].number = val
+        },
+        //删除
+        delet(state,id){
+            const index = state.goodPlenty.findIndex(item =>{
+                if(item.id == id){
+                    return true
+                }
+            })
+            state.goodPlenty.splice(index,1)
+        },
+        //单选
+        onchecke(state,{sls,index}){
+            state.goodPlenty[index].selected = sls
+        },
+        //全选
+        allselected(state,e){
+            state.goodPlenty.forEach(item =>{
+                item.selected = !e
+            })
         }
     },
+    getters:{
+        //总件数
+        totalNumber(state){
+            let num = 0;
+            state.goodPlenty.forEach(item =>{
+                if(item.selected){
+                    num += item.number
+                }
+            })
+            return num
+        },
+        //总价格
+        totalpirce(state){
+            let pirces = 0
+            state.goodPlenty.forEach(item =>{
+                if(item.selected){
+                    pirces += item.number * item.pirce
+                }
+            })
+            return pirces * 100
+        },
+        //构造商品状态数据
+        onchecke(state){
+            let objMap = []
+            state.goodPlenty.forEach(item =>{
+                objMap[item.id] = item.selected
+            })
+            return objMap
+        },
+        allselected(state){
+            let objMap = false
+            objMap = state.goodPlenty.every(item =>{
+                return item.selected === true
+            })
+            return objMap
+        },
+        //构造商品数据id
+        ids(state){
+            let objMap = []
+            state.goodPlenty.forEach((item,index) =>{
+                objMap[index] =  item.id
+            })
+            return objMap
+        }   
+    },
+
+    plugins:[createPersistedState()]
 })
+export default store
