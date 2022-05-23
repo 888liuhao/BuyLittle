@@ -21,9 +21,13 @@ Vue.use(Vuex)
             }
         },
         //购物车内加减数量
-        quantity(state,{val,name}){
-            console.log(state.goodPlenty);
-            state.goodPlenty[name].number = val
+        quantity(state,{val,id}){
+           state.goodPlenty = state.goodPlenty.map(item => {
+                if(item.id == id){
+                    item.number = val
+                }
+                return item
+            });
         },
         //删除
         delet(state,id){
@@ -37,6 +41,7 @@ Vue.use(Vuex)
         //单选
         onchecke(state,{sls,index}){
             state.goodPlenty[index].selected = sls
+            // console.log(sls,index);
         },
         //全选
         allselected(state,e){
@@ -76,10 +81,12 @@ Vue.use(Vuex)
         },
         allselected(state){
             let objMap = false
-            objMap = state.goodPlenty.every(item =>{
+            if(state.goodPlenty.length > 0){
+                objMap = state.goodPlenty.every(item =>{
                 return item.selected === true
             })
             return objMap
+            }
         },
         //构造商品数据id
         ids(state){
@@ -88,7 +95,7 @@ Vue.use(Vuex)
                 objMap[index] =  item.id
             })
             return objMap
-        }   
+        },
     },
 
     plugins:[createPersistedState()]

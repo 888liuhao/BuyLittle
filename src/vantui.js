@@ -29,10 +29,11 @@ import {
         Card,
         Stepper,
         Toast,
-
+        Empty,
         } from 'vant';
 
 Vue.use(Button);
+Vue.use(Empty);
 Vue.use(SwipeCell);
 Vue.use(Stepper);
 Vue.use(Sku);

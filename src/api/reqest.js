@@ -19,6 +19,8 @@ reqest.interceptors.request.use(function(config){
 
 //响应拦截器
 reqest.interceptors.response.use(function(response){
+    console.log('响应拦截器');
+
     //开启响应加载进度条
     return response.data   //data 即要求响应后返回的数据
 },function(error){
