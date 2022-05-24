@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store  from '../store/index.js'
 //引入加载进度条js文件
 import NProgress from "nprogress"
 
@@ -30,6 +31,7 @@ const router = new VueRouter({
                     meta:{
                         name:"shops",
                         title:"购物车",
+                        Identity:true,
                         isShownav:false
                     }
                 },
@@ -38,7 +40,9 @@ const router = new VueRouter({
                     component:() => import ('../views/personalname.vue'),
                     meta:{
                         name:"personalname",
-                        isShownav:false
+                        Identity:true,
+                        title:'个人中心',
+                        isShownav:true
                     }
                 },
             ]
@@ -64,7 +68,55 @@ const router = new VueRouter({
             meta:{
                 title:'商品详情'
             }
-        }
+        },
+        {
+            path:'/login',
+            component:() => import ('../views/login.vue'),
+            meta:{
+                title:'登录',
+                isShownav:true
+            }
+        },
+        {
+            path:'/newEnroll',
+            component:() => import ('../views/newEnroll.vue'),
+            meta:{
+                title:'注册',
+                isShownav:true
+            }
+        },
+        {
+            path:'/MyOrder',
+            component:() => import ('../views/MyOrder.vue'),
+            meta:{
+                title:'收货地址',
+                isShownav:false
+            }
+        },
+        {
+            path:'/MyAddress',
+            component:() => import ('../views/MyAddress.vue'),
+            meta:{
+                title:'我的订单',
+                isShownav:false
+            }
+        },
+        {
+            path:'/newAddress',
+            component:() => import ('../views/newAddress.vue'),
+            meta:{
+                title:'新增地址',
+                isShownav:false
+            }
+        },
+        {
+            path:'/editAddress/:addressInfo',
+            component:() => import ('../views/editAddress.vue'),
+            meta:{
+                title:'编辑地址',
+                isShownav:false
+            }
+        },
         
     ]
 })
@@ -78,6 +130,16 @@ NProgress.configure({
 router.beforeEach((to, from, next) => {
     // 开启网页加载进度条
     NProgress.start()
+    //判断跳转的页面是否需要权限 - Identity
+    if(to.meta.Identity){
+        //如果需要权限则从vuex取出token进行效验
+        if(store.state.token){
+            next();
+        }else{
+            //没登录（无token）则跳转到登录页面进行登录
+            next({path:'/login?redirect='+to.fullPath})
+        }
+    }
     next();
 })
 //全局后守卫

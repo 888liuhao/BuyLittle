@@ -8,9 +8,26 @@ Vue.use(Vuex)
     strict:true,
     state:{
         goodPlenty:[],
-        allselected:false
+        allselected:false,
+        token:'',
+        userInfo:{}
     },
     mutations:{
+        //设置头像
+        uptoux(state,src){
+            state.userInfo.avatar = src
+        },
+        //设置用户信息和token
+        userLogin(state,{token,userInfo}){
+            state.token = token
+            state.userInfo = userInfo
+        },
+        //用户退出的时候就清除用户信息和token
+        clearInfo(state){
+            state.token = ''
+            state.userInfo = ''
+            state.goodPlenty = []
+        },
         //判断加入商品是否重复
         addGoodsCat(state,data){
             const index = state.goodPlenty.findIndex(item => item.id == data.id)
@@ -41,7 +58,6 @@ Vue.use(Vuex)
         //单选
         onchecke(state,{sls,index}){
             state.goodPlenty[index].selected = sls
-            // console.log(sls,index);
         },
         //全选
         allselected(state,e){

@@ -30,10 +30,31 @@ import {
         Stepper,
         Toast,
         Empty,
+        Form,
+        Field,
+        ActionSheet,
+        Cell,
+        CellGroup,
+        Uploader,
+        Dialog,
+        AddressEdit,
+        AddressList,
+        Area,
+
         } from 'vant';
 
 Vue.use(Button);
+Vue.use(Area);
+Vue.use(AddressEdit);
+Vue.use(AddressList);
+Vue.use(Dialog);
+Vue.use(Uploader);
+Vue.use(ActionSheet);
+Vue.use(Cell);
+Vue.use(CellGroup);
 Vue.use(Empty);
+Vue.use(Form);
+Vue.use(Field);
 Vue.use(SwipeCell);
 Vue.use(Stepper);
 Vue.use(Sku);

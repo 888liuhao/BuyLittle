@@ -1,5 +1,13 @@
 <template lang="">
     <div>
+      <!-- 地址栏 -->
+      <div class="address">
+        <div class="address1"><van-icon name="logistics" size="40px" /></div>
+        <div class="address2">
+          <span>name</span> <span>1380266666</span>
+          <div class="van-ellipsis">地址：545444dasdsadhjasifhakusfhiualshfiuahsfiuahfliUFHADFHL44</div>
+        </div>
+      </div>
         
     <van-swipe-cell v-for="(item,index) in dataGoods" :key="item.id">
       <van-card :price="item.sell_price" desc="规格A" :title="dataGoods[index].title" class="goods-card" :thumb="dataGoods[index].thumb_path">
@@ -22,7 +30,7 @@
       </van-empty>
     </div>
     <!-- 提交订单 -->
-        <van-submit-bar :price="$store.getters.totalpirce" button-text="提交订单">
+        <van-submit-bar :price="$store.getters.totalpirce" :disabled="isDiss" button-text="提交订单">
             <van-checkbox :value="$store.getters.allselected" @click="allsls($store.getters.allselected)" class="zite">
             合计{{$store.getters.totalNumber}}件商品</van-checkbox>
             <template #tip>
@@ -39,6 +47,7 @@ export default {
     return {
       cat,
       ids: this.$store.getters.ids,
+      isDis:true,
       dataGoods:[],
       nums:[]
     }
@@ -46,6 +55,16 @@ export default {
   created() {
     this.getting();
     this.nums =  this.$store.state.goodPlenty.map(item => item.number)
+  },
+  computed:{
+    isDiss(){
+        if(this.dataGoods.length > 0){
+          this.isDis = false
+        }else{
+          this.isDis = true
+        }
+        return this.isDis
+    }
   },
   methods: {
     //进来购物车获取数据
@@ -82,6 +101,23 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.address{
+  height: 55px;
+  margin-top: 10px;
+  padding: 0 20px;
+  border-radius: 10px;
+  display: flex;
+  background-color: #f5f1d0;
+  justify-content: flex-start;
+  .address1{
+    margin-top: 7px;
+  }
+  .address2{
+    width: 300px;
+    margin-left: 35px;
+    font-size: 26px;
+  }
+}
 .delete-button {
   height: 100%;
 }
