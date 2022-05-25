@@ -38,9 +38,14 @@ export default {
       if(result.length === 0){
         return
       }
+
       if(result.length === 1){
         this.chosenAddressId = result[0].id
-        return
+        let {province,city,country,addressDetail} = result[0]
+        result[0].isDefault ? this.chosenAddressId = result[0].id : ''
+        result[0].address = `${province}${city}${country}${addressDetail}`
+        return  this.list = result
+        
       }
       //改造数据
       result.map(item =>{
@@ -58,6 +63,7 @@ export default {
     onEdit(item, index) {
         this.$router.push('/editAddress/'+ JSON.stringify(item))
     },
+
   },
 };
 </script>

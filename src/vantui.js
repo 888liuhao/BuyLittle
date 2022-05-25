@@ -40,10 +40,13 @@ import {
         AddressEdit,
         AddressList,
         Area,
-
+        Tab,
+        Tabs,
         } from 'vant';
 
 Vue.use(Button);
+Vue.use(Tab);
+Vue.use(Tabs);
 Vue.use(Area);
 Vue.use(AddressEdit);
 Vue.use(AddressList);

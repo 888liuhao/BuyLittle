@@ -55,6 +55,10 @@ Vue.use(Vuex)
             })
             state.goodPlenty.splice(index,1)
         },
+        //清空购物车
+        emptyCar(state){
+            state.goodPlenty = []
+        },
         //单选
         onchecke(state,{sls,index}){
             state.goodPlenty[index].selected = sls
@@ -90,8 +94,8 @@ Vue.use(Vuex)
         //构造商品状态数据
         onchecke(state){
             let objMap = []
-            state.goodPlenty.forEach(item =>{
-                objMap[item.id] = item.selected
+            state.goodPlenty.forEach((item,index) =>{
+                objMap[index] = item.selected
             })
             return objMap
         },
