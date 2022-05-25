@@ -41,6 +41,7 @@
 </template>
 <script>
 import { gettingGoodCat } from '../api/shops.js'
+import { getAddress } from '../api/personalname.js'
 import cat from '../assets/imgs/car.png'
 export default {
   data() {
@@ -49,10 +50,12 @@ export default {
       ids: this.$store.getters.ids,
       isDis:true,
       dataGoods:[],
+      myAddress:[],
       nums:[]
     }
   },
   created() {
+    this._getAddress()
     this.getting();
     this.nums =  this.$store.state.goodPlenty.map(item => item.number)
   },
@@ -67,6 +70,12 @@ export default {
     }
   },
   methods: {
+    //进来时获取用户的收货地址
+    async _getAddress(){
+      let user_id = this.$store.state.userInfo.id
+      const result = await getAddress(user_id)
+      console.log(result);
+    },
     //进来购物车获取数据
     async getting() {
         if(this.$store.state.goodPlenty.length > 0){
