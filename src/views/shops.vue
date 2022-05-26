@@ -66,9 +66,10 @@ export default {
     this.nums = this.$store.state.goodPlenty.map(item => item.number)
   },
   computed: {
-    ...mapGetters(['onchecke', 'totalpirce', 'totalNumber']),
+    ...mapGetters(['onchecke', 'totalpirce', 'totalNumber','totalNumber']),
     isDiss() {
-      if (this.onchecke && this.dataGoods.length > 0) {
+      //当有选中商品数量和有商品时才开启提交按钮
+      if (this.dataGoods.length > 0  && this.totalNumber > 0) {
         this.isDis = false
       } else {
         this.isDis = true
@@ -116,7 +117,6 @@ export default {
     },
     //单选
     onechecke(sls, index) {
-      console.log(sls, index);
       this.$store.commit({
         type: 'onchecke',
         sls,
