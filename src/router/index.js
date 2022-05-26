@@ -117,7 +117,14 @@ const router = new VueRouter({
                 isShownav:false
             }
         },
-        
+        {
+            path:'/orderDetailsPage/:order_id',
+            component:() => import ('../views/orderDetailsPage.vue'),
+            meta:{
+                title:'订单详情',
+                isShownav:false
+            }
+        },
     ]
 })
 

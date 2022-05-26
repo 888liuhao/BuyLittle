@@ -9,3 +9,8 @@ export function SubmitCar(orderData){
 export function getOrderInfo(user_id){
     return reqest.post(`/api/userorder/${user_id}`)
 }
+
+//获取用户订单信息
+export function getOrder_id(order_id){
+    return reqest.post(`/api/getorder/${order_id}`)
+}

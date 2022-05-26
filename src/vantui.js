@@ -42,8 +42,13 @@ import {
         Area,
         Tab,
         Tabs,
+        Step,
+        Steps,
+
         } from 'vant';
 
+Vue.use(Step);
+Vue.use(Steps);
 Vue.use(Button);
 Vue.use(Tab);
 Vue.use(Tabs);

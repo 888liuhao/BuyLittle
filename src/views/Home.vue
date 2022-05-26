@@ -1,4 +1,4 @@
-<template lang="">
+<template>
 <!-- 头部栏搜索 -->
 <div class="box">
     <div class="navbox">
