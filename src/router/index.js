@@ -23,7 +23,15 @@ const router = new VueRouter({
                     meta:{
                         name:"Home",
                         isShownav:true
-                    }
+                    },
+                    children:[{
+                        path:'search',
+                        component:() => import ('../views/search.vue'),
+                        meta:{
+                        name:"search",
+                        isShownav:true
+                        },
+                    }]
                 },
                 {
                     path:'shops',

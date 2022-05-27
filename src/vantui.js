@@ -44,10 +44,12 @@ import {
         Tabs,
         Step,
         Steps,
+        Popup,
 
         } from 'vant';
 
 Vue.use(Step);
+Vue.use(Popup);
 Vue.use(Steps);
 Vue.use(Button);
 Vue.use(Tab);

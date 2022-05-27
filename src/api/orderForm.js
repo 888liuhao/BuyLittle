@@ -14,3 +14,13 @@ export function getOrderInfo(user_id){
 export function getOrder_id(order_id){
     return reqest.post(`/api/getorder/${order_id}`)
 }
+
+//模拟用户支付
+export function moNiPayment(order_id){
+    return reqest.post(`/api/payorder/${order_id}`)
+}
+
+//获取订单物流信息
+export function logistics(){
+    return reqest.get('/api/kuaidi100')
+}

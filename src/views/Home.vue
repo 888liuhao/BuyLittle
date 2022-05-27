@@ -5,7 +5,7 @@
         <div class="logobox">
             <img src="../assets/imgs/logo.png" >
         </div>
-        <van-search v-model="value" placeholder="请输入搜索关键词"  />
+        <van-search v-model="value" placeholder="请输入搜索关键词" @click="$router.push('/home/index/search')" />
     </div>
 
     <!-- 轮播图 -->
@@ -30,6 +30,10 @@
 
     <!-- 回顶部 -->
     <backTop :scrollTop="500"></backTop>
+
+    <!-- 搜索匹配子路由 -->
+    <router-view></router-view>
+
 </div>
 </template>
 <script>

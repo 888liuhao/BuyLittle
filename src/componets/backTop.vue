@@ -6,6 +6,7 @@
     </div>
 </template>
 <script>
+import {throttle} from '../utils/tools.js'
 import backTopPng from '../assets/imgs/backtop.png'
 export default {
     data() {
@@ -34,7 +35,7 @@ export default {
         }
     },
     mounted() {
-        document.addEventListener('scroll', this.topBack)  //绑定滚轮事件
+        document.addEventListener('scroll',throttle(this.topBack,500))  //绑定滚轮事件   throttle节流优化
     },
     destroyed() {
         document.removeEventListener('scroll', this.topBack)  //解绑滚轮事件，切换页面的时候要解绑

@@ -2,7 +2,7 @@
   <div class="box">
 
     <div class="box1">
-      <div class="box2">{{condition}}</div>
+      <div class="box2">{{detectionAct}}</div>
       <span style="color:white;font-size:16px">订单完成时间:&nbsp;&nbsp;&nbsp;{{orData.add_time | timeFormat('YYYY-MM-DD HH:mm')}}</span>
       <div class="imgs">
         <img src="../assets/imgs/222.png" alt="">
@@ -20,12 +20,12 @@
         </div>
       </div>
     </div>
-
+    <!-- 商品流程 -->
     <van-steps :active="active" class="boxs">
       <van-step v-for="item in steps" :key="item.status">{{item.title}}</van-step>
     </van-steps>
-
-    <van-card class="caedd" v-for="item in orGood" :key="item.id" :num="item.cou" :desc="orData.pay_way" :price="item.sell_price" :title="item.title" :thumb="item.thumb_path"></van-card>
+    <!-- 商品信息 -->
+    <van-card class="caedd" v-for="item in orGood" @click="$router.push(`/goodinfo/${item.id}`)" :key="item.id" :num="item.cou" :desc="orData.pay_way" :price="item.sell_price" :title="item.title" :thumb="item.thumb_path"></van-card>
 
     <!-- 订单信息 -->
     <div class="info">
@@ -52,15 +52,37 @@
       <van-button type="primary" size="small" color="#569cb3" v-clipboard:copy="orData.order_id" v-clipboard:success="onCopy">复制订单号</van-button>&nbsp;
       <van-button type="primary" size="small" color="red" v-if="orData.status === 0" @click="payment">立即付款</van-button>&nbsp;
       <template v-if="orData.status === 2">
-        <van-button type="primary" size="small">物流信息</van-button>&nbsp;
+        <van-button type="primary" size="small" @click="onlogistics">物流信息</van-button>&nbsp;
         <van-button type="primary" size="small">交易成功</van-button>
       </template>
     </div>
 
+    <!-- 物流信息 -->
+    <van-popup v-model="show" position="bottom" :style="{ height: '60%' }">
+      <div>
+        <div class="address">
+          <div class="address1">
+            <van-icon name="location" color="#00b294" size="40px" />
+          </div>
+          <div class="address2" v-if="orData.address_info">
+            <span>{{orData.address_info.name}}</span> <span>{{orData.address_info.tel}}</span>
+            <div class="van-ellipsis">地址：{{orData.address_info.province}}{{orData.address_info.city}}{{orData.address_info.country}}{{orData.address_info.addressDetail}}</div>
+          </div>
+        </div>
+      </div>
+
+      <van-steps direction="vertical" :active="0">
+        <van-step v-for="inFo in logisticsData" :key="inFo.time">
+          <h3>{{inFo.location}}</h3>
+          <p>{{inFo.time}}</p>
+        </van-step>
+      </van-steps>
+    </van-popup>
+
   </div>
 </template>
 <script>
-import { getOrder_id } from '../api/orderForm.js'
+import { getOrder_id, moNiPayment, logistics } from '../api/orderForm.js'
 import { gettingGoodCat } from '../api/shops.js'
 export default {
   name: 'orderDetailsPage',
@@ -77,6 +99,20 @@ export default {
       ],
       orData: {},
       orGood: [],
+      show: false,
+      logisticsData:[]
+    }
+  },
+  computed: {
+    detectionAct() {
+      let { status } = this.orData
+      if (status !== 0) {
+        this.active = status + 1
+        return '交易成功'
+      } else {
+        this.active = status
+        return '未支付'
+      }
     }
   },
   created() {
@@ -90,9 +126,9 @@ export default {
       this.orGood = message
       // 商品状态变化
       if (this.orData.status !== 0) {
-        this.active = (this.orData.status) + 1  
+        this.active = (this.orData.status) + 1
         this.condition = '交易成功'
-        return 
+        return
       } else {
         this.active = this.orData.status
         this.condition = '未支付'
@@ -104,7 +140,30 @@ export default {
       this.$toast('复制成功')
     },
     payment() {
-
+      this.$dialog.confirm({
+        message: '确认是否立即支付'
+      })
+        .then(async () => {
+          //确认支付
+          try {
+            await moNiPayment(this.order_id)
+            this.$toast({
+              message: '支付成功',
+              icon: 'gold-coin-o'
+            })
+            this.orData.status = 2
+          } catch (err) {
+            this.$toast('网络繁忙')
+          }
+        })
+        .catch(() => {
+          //取消支付
+        })
+    },
+    async onlogistics() {
+      this.show = !this.show
+      const result = await logistics()
+      this.logisticsData = result
     }
   }
 }
