@@ -45,10 +45,13 @@ import {
         Step,
         Steps,
         Popup,
-
+        DropdownMenu,
+        DropdownItem,
         } from 'vant';
 
 Vue.use(Step);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 Vue.use(Popup);
 Vue.use(Steps);
 Vue.use(Button);

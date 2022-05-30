@@ -133,6 +133,14 @@ const router = new VueRouter({
                 isShownav:false
             }
         },
+        {
+            path:'/seResult/:seValue',
+            component:() => import ('../views/seResult.vue'),
+            meta:{
+                title:'搜索详情',
+                isShownav:true
+            }
+        },
     ]
 })
 

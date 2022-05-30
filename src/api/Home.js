@@ -1,4 +1,5 @@
 import reqest from './reqest.js'
+import qs from 'qs'  //引入qs转换
 
 export function foreachHome(){
     return reqest.get('/api/getlunbo')
@@ -18,4 +19,11 @@ export function foreachgoodInfo(id){
 
 export function foreachgoodInfoo(id){
     return reqest.get(`/api/getgoodsinfo/${id}`)
+}
+
+//搜索商品
+export function gitSearchValue(data){
+    // let searchValue = Object.keys(data).map(key => `${key}=${encodeURIComponent(data[key])}`).join('&');
+    let searchValue = qs.stringify(data)
+    return reqest.get(`/api/search?${searchValue}`)
 }

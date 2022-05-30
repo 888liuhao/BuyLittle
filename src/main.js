@@ -10,6 +10,8 @@ import './assets/scss/Normalize.css'
 import './vantui.js'
 //引入响应进度条css文件
 import "../node_modules/nprogress/nprogress.css"
+//引入文字图标文件
+import "./assets/scss/iconfont.css"
 //引入复制粘贴--vue-clipboard2
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
